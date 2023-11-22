@@ -17,7 +17,6 @@ import {
   StyleSheet,
   TextInput,
   useColorScheme,
-  View,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -56,10 +55,15 @@ const App = () => {
           style={{backgroundStyle}}>
           {!!list.length &&
             list
-              .filter(item => item.name.includes(filterByName))
+              .filter((item: ProductT) =>
+                item.name
+                  .toLocaleLowerCase()
+                  .includes(filterByName.toLocaleLowerCase().trimStart()),
+              )
               .map((item: ProductT) => {
                 return (
                   <ListItem
+                    key={item.name}
                     name={item.name}
                     description={item.description}
                     price={item.price}
